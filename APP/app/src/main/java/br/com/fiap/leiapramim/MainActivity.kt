@@ -1,6 +1,8 @@
 package br.com.fiap.leiapramim
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +24,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
+                    val deviceManufacturer = Build.MANUFACTURER   // Fabricante do cel.
+                    val deviceModel = Build.MODEL                 // Modelo do cel.
+                    val androidVersion = Build.VERSION.RELEASE    // Versão do Android.
+                    val sdkVersion = Build.VERSION.SDK_INT        // Versão do SDK/API.
+ds
                     val navController = rememberNavController()
                     NavigationGraph(navController, NavigationViewModel())
                 }
