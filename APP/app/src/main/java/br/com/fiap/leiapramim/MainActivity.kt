@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     val deviceModel = Build.MODEL                 // Modelo do cel.
                     val androidVersion = Build.VERSION.RELEASE    // Versão do Android.
                     val sdkVersion = Build.VERSION.SDK_INT        // Versão do SDK/API.
-ds
+
                     val navController = rememberNavController()
                     NavigationGraph(navController, NavigationViewModel())
                 }

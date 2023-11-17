@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "41864cde-2654-47e8-b71d-ecb80ff2e506",
+		"name": "LeiaPraMim",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15248015"
+	},
+	"item": [
+		{
+			"name": "External APIs",
+			"item": [
+				{
+					"name": "API OCR Space - OCR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "K84662716688957",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "language",
+									"value": "por",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "isOverlayRequired",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "filetype",
+									"value": "jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.ocr.space/parse/image",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ocr",
+								"space"
+							],
+							"path": [
+								"parse",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API OCR Space - OCR",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "K84662716688957",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://api.ocr.space/parse/imageurl?apikey=K84662716688957&url=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfxwPiEBzoLgi9CXnFe5gLjBF1RhFhPWbv4-7_t3q-%26s",
+							"protocol": "https",
+							"host": [
+								"api",
+								"ocr",
+								"space"
+							],
+							"path": [
+								"parse",
+								"imageurl"
+							],
+							"query": [
+								{
+									"key": "apikey",
+									"value": "K84662716688957"
+								},
+								{
+									"key": "url",
+									"value": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfxwPiEBzoLgi9CXnFe5gLjBF1RhFhPWbv4-7_t3q-%26s"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "API VoiceRSS - Text To Speech",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.voicerss.org/?key=dbb3f4b4345f46fdbc381da41e02628a&hl=pt-br&src=TESTANDO 123",
+							"protocol": "https",
+							"host": [
+								"api",
+								"voicerss",
+								"org"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "dbb3f4b4345f46fdbc381da41e02628a"
+								},
+								{
+									"key": "hl",
+									"value": "pt-br"
+								},
+								{
+									"key": "src",
+									"value": "TESTANDO 123"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LTM_DEVICE",
+			"item": [
+				{
+					"name": "Create a device",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"deviceId\": \"rm94177\",\r\n    \"deviceFactory\": \"Motorola\",\r\n    \"deviceModel\": \"Moto G20\",\r\n    \"androidVersion\": \"Choco 30\",\r\n    \"sdkVersion\": 11,\r\n    \"dateRecord\": \"2021-12-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/device",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"device"
+							],
+							"query": [
+								{
+									"key": "sou",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/device",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"device"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get device by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/device/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"device",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get device by source id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/device/deviceId?deviceId=rm94177",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"device",
+								"deviceId"
+							],
+							"query": [
+								{
+									"key": "deviceId",
+									"value": "rm94177"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
