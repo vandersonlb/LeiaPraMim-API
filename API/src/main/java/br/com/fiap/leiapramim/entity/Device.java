@@ -24,7 +24,7 @@ public class Device {
 
   @Column(name = "id_source")
   @NotNull(message = "ID de origem do aparelho obrigatório")
-  private String deviceId;
+  private String sourceDeviceId;
 
   @Column(name = "nm_factory")
   private String deviceFactory;
@@ -40,7 +40,7 @@ public class Device {
 
   @Column(name = "dt_record")
   @NotNull(message = "Data de criação do registo obrigatória")
-  @Past
+  @Past(message = "Data de criação do registo deve ser uma data passada")
   private LocalDate dateRecord;
 
   public Device() {
@@ -50,7 +50,7 @@ public class Device {
   public Device(Integer id, String deviceId, String deviceFactory, String deviceModel, String androidVersion, Integer sdkVersion, LocalDate dateRecord) {
     super();
     this.id = id;
-    this.deviceId = deviceId;
+    this.sourceDeviceId = deviceId;
     this.deviceFactory = deviceFactory;
     this.deviceModel = deviceModel;
     this.androidVersion = androidVersion;
@@ -67,11 +67,11 @@ public class Device {
   }
 
   public String getDeviceId() {
-    return deviceId;
+    return sourceDeviceId;
   }
 
   public void setDeviceId(String deviceId) {
-    this.deviceId = deviceId;
+    this.sourceDeviceId = deviceId;
   }
 
   public String getDeviceFactory() {
@@ -116,8 +116,8 @@ public class Device {
 
   @Override
   public String toString() {
-    return String.format("Device [id=%s, deviceId=%s, deviceFactory=%s, deviceModel=%s, androidVersion=%s, sdkVersion=%s, dateRecord=%s]",
-        id, deviceId, deviceFactory, deviceModel, androidVersion, sdkVersion, dateRecord);
+    return String.format("Device [id=%s, sourceDeviceId=%s, deviceFactory=%s, deviceModel=%s, androidVersion=%s, sdkVersion=%s, dateRecord=%s]",
+                          id, sourceDeviceId, deviceFactory, deviceModel, androidVersion, sdkVersion, dateRecord);
   }
 
 }

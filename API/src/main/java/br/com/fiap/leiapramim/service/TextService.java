@@ -13,35 +13,41 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.leiapramim.entity.Device;
+import br.com.fiap.leiapramim.entity.Text;
 import br.com.fiap.leiapramim.repository.DeviceRepository;
+import br.com.fiap.leiapramim.repository.TextRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("device")
-public class DeviceService {
+@RequestMapping("text")
+public class TextService {
+
+  @Autowired
+  private TextRepository textRepository;
 
   @Autowired
   private DeviceRepository deviceRepository;
 
   @GetMapping
-  public List<Device> listAll() {
-    return deviceRepository.findAll();
+  public List<Text> listAll() {
+    return textRepository.findAll();
   }
 
   @GetMapping("{id}")
-  public Device getById(@PathVariable int id) {
-    return deviceRepository.findById(id).get();
+  public Text getById(@PathVariable int id) {
+    return textRepository.findById(id).get();
   }
 
-  @GetMapping("source_device/{deviceId}")
-  public Device getBySourceDeviceId(@PathVariable String deviceId) {
-    return deviceRepository.findBySourceDeviceId(deviceId);
+  @GetMapping("device/{deviceId}")
+  public List<Text> listAllByDeviceId(@PathVariable int deviceId) {
+    Device device = deviceRepository.findById(deviceId).get();
+    return textRepository.findAllByDevice(device);
   }
 
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
-  public Device add(@Valid @RequestBody Device device) {
-    return deviceRepository.save(device);
+  public Text add(@Valid @RequestBody Text text) {
+    return textRepository.save(text);
   }
 
 }
