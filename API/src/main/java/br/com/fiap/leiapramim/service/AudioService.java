@@ -12,42 +12,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.leiapramim.entity.Device;
+import br.com.fiap.leiapramim.entity.Audio;
 import br.com.fiap.leiapramim.entity.Text;
-import br.com.fiap.leiapramim.repository.DeviceRepository;
+import br.com.fiap.leiapramim.repository.AudioRepository;
 import br.com.fiap.leiapramim.repository.TextRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("text")
-public class TextService {
+@RequestMapping("audio")
+public class AudioService {
+
+  @Autowired
+  private AudioRepository audioRepository;
 
   @Autowired
   private TextRepository textRepository;
 
-  @Autowired
-  private DeviceRepository deviceRepository;
-
   @GetMapping
-  public List<Text> listAll() {
-    return textRepository.findAll();
+  public List<Audio> listAll() {
+    return audioRepository.findAll();
   }
 
   @GetMapping("{id}")
-  public Text getById(@PathVariable int id) {
-    return textRepository.findById(id).get();
+  public Audio getById(@PathVariable int id) {
+    return audioRepository.findById(id).get();
   }
 
-  @GetMapping("device/{deviceId}")
-  public List<Text> listAllByDeviceId(@PathVariable int deviceId) {
-    Device device = deviceRepository.findById(deviceId).get();
-    return textRepository.findAllByDevice(device);
+  @GetMapping("text/{textId}")
+  public Audio getAudioByTextId(@PathVariable int textId) {
+    Text text = textRepository.findById(textId).get();
+    return audioRepository.findByText(text);
   }
 
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
-  public Text addText(@Valid @RequestBody Text text) {
-    return textRepository.save(text);
+  public Audio addAudio(@Valid @RequestBody Audio audio) {
+    return audioRepository.save(audio);
   }
 
 }

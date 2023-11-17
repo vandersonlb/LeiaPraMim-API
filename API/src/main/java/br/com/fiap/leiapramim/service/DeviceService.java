@@ -40,7 +40,7 @@ public class DeviceService {
 
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
-  public Device add(@Valid @RequestBody Device device) {
+  public Device addDevice(@Valid @RequestBody Device device) {
     return deviceRepository.save(device);
   }
 
