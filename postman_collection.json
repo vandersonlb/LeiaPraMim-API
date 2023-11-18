@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "41864cde-2654-47e8-b71d-ecb80ff2e506",
+		"_postman_id": "e48f1d09-99fe-458b-825a-f08679cad096",
 		"name": "LeiaPraMim",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "15248015"
@@ -137,7 +137,7 @@
 			]
 		},
 		{
-			"name": "LTM_DEVICE",
+			"name": "LPM_DEVICE",
 			"item": [
 				{
 					"name": "Create a device",
@@ -175,7 +175,7 @@
 					"response": []
 				},
 				{
-					"name": "Get all devices",
+					"name": "List all devices",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -214,12 +214,12 @@
 					"response": []
 				},
 				{
-					"name": "Get device by source id",
+					"name": "Get device by source device id",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/device/deviceId?deviceId=rm94177",
+							"raw": "http://localhost:8080/device/source_device/rm94177",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -227,13 +227,194 @@
 							"port": "8080",
 							"path": [
 								"device",
-								"deviceId"
-							],
-							"query": [
-								{
-									"key": "deviceId",
-									"value": "rm94177"
+								"source_device",
+								"rm94177"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LPM_TEXTO",
+			"item": [
+				{
+					"name": "Create a text",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 0,\r\n    \"photoURL\": \"https://example.com/photo.jpg\",\r\n    \"text\": \"Este é um exemplo de texto.\",\r\n    \"createDate\": \"2022-11-16\",\r\n    \"device\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/text",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all texts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/text",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"text"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get text by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/text/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"text",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List texts by device id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/text/device/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"text",
+								"device",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LPM_AUDIO",
+			"item": [
+				{
+					"name": "Create a audio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"audioURL\": \"https://example.com/audio/sample.mp3\",\r\n    \"createDate\": \"2023-11-16\",\r\n    \"text\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/audio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"audio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all audio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/audio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"audio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get audio by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/audio/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"audio",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get audio by text id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/audio/text/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"audio",
+								"text",
+								"2"
 							]
 						}
 					},

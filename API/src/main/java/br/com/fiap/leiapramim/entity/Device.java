@@ -9,11 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
 @Entity
-@Table(name = "T_LPM_DEVICE")
+@Table(name = "T_LPM_DEVICE", uniqueConstraints = {@UniqueConstraint(columnNames = "id_source", name = "uk_lpm_id_source")})
 public class Device {
 
   @Id
