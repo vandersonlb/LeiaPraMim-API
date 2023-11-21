@@ -145,11 +145,8 @@ fun listAllDevice() {
         }
 
         override fun onFailure(call: Call<List<Device>>, t: Throwable) {
-            Log.e("dev_log", "Deu ruim")
-            Log.e("dev_log", "${t.stackTrace}")
+            Log.e("dev_log", "Aconteceu alguma problema em ${javaClass.enclosingMethod?.name}")
             Log.e("dev_log", "${t.message}")
-            Log.e("dev_log", "${t.cause}")
-            Log.e("dev_log", "${t.localizedMessage}")
         }
     })
 
@@ -217,11 +214,8 @@ fun addDevice() {
         }
 
         override fun onFailure(call: Call<Device>, t: Throwable) {
-            Log.e("dev_log", "Deu ruim")
-            Log.e("dev_log", "${t.stackTrace}")
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
             Log.e("dev_log", "${t.message}")
-            Log.e("dev_log", "${t.cause}")
-            Log.e("dev_log", "${t.localizedMessage}")
         }
     })
 
