@@ -33,7 +33,7 @@ public class Text {
 
   @Column(name = "dt_create")
   @NotNull(message = "Data de criação do registo obrigatória")
-  @Past(message = "Data de criação do registo deve ser uma data passada")
+//  @Past(message = "Data de criação do registro deve ser uma data passada")
   private LocalDate createDate;
 
   @ManyToOne
