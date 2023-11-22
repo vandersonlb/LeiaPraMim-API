@@ -38,11 +38,11 @@ class MainActivity : ComponentActivity() {
                     val deviceViewModel = DeviceViewModel()
                     val deviceState by deviceViewModel.loggedDevice.observeAsState(
                         Device(
-                            id = "0",
+                            id = 0,
                             deviceId = Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID),
                             deviceFactory = Build.MANUFACTURER,
                             deviceModel = Build.MODEL,
-                            androidVersion = Build.VERSION.RELEASE,
+                            androidVersion = Build.VERSION.RELEASE.toInt(),
                             sdkVersion = Build.VERSION.SDK_INT.toString(),
                             dateRecord = LocalDateTime.now().toString()
                         )
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     loginDevice(deviceState, deviceViewModel)
 
                     val navController = rememberNavController()
-                    NavigationGraph(navController, NavigationViewModel())
+                    NavigationGraph(navController, NavigationViewModel(), deviceViewModel)
 
                 }
             }

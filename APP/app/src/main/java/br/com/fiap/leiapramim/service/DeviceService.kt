@@ -14,7 +14,7 @@ interface DeviceService {
     fun listAll(): Call<List<Device>>
 
     @GET("/device/{id}")
-    fun getById(@Path("id") id: String): Call<Device>
+    fun getById(@Path("id") id: Int): Call<Device>
 
     @GET("/device/source_device/{deviceId}")
     fun getBySourceDeviceId(

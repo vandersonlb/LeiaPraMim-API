@@ -1,9 +1,6 @@
 package br.com.fiap.leiapramim.view
 
-import android.content.Context
 import android.media.MediaPlayer
-import android.os.Build
-import android.provider.Settings
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,21 +24,21 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.fiap.leiapramim.R
 import br.com.fiap.leiapramim.model.Device
-import br.com.fiap.leiapramim.service.DeviceClient
+import br.com.fiap.leiapramim.model.Text
+import br.com.fiap.leiapramim.service.TextClient
 import br.com.fiap.leiapramim.view.components.BottomNavigation
+import br.com.fiap.leiapramim.viewmodel.DeviceViewModel
 import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.google.gson.JsonSyntaxException
-import com.google.gson.reflect.TypeToken
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDateTime
 
 @Composable
-fun HomeScreen(navController: NavHostController, navigationViewModel: NavigationViewModel) {
+fun HomeScreen(
+    navController: NavHostController,
+    navigationViewModel: NavigationViewModel,
+    deviceViewModel: DeviceViewModel
+) {
 
     val context = LocalContext.current
     var player by remember { mutableStateOf(MediaPlayer.create(context, R.raw.intro)) }
@@ -67,10 +64,10 @@ fun HomeScreen(navController: NavHostController, navigationViewModel: Navigation
                             if (player == null) player = MediaPlayer.create(context, R.raw.intro)
 //                            player.start()
 //                            getInfo(context)
-//                            listAllDevice()
-//                            getDeviceById("1")
-//                            getDeviceBySourceId("rm94177")
-                            addDevice()
+//                            listAllText()
+//                            getTextById(55)
+//                            listTextByDeviceId(13)
+                            addText(deviceViewModel.loggedDevice.value!!)
                         },
                         Modifier.size(256.dp)
                     ) {
@@ -112,6 +109,77 @@ fun HomeScreen(navController: NavHostController, navigationViewModel: Navigation
     }
 }
 
+
+
+
+fun listAllText() {
+    var call = TextClient().getTextService().listAll()
+
+    call.enqueue(object: Callback<List<Text>>{
+        override fun onResponse(call: Call<List<Text>>, response: Response<List<Text>>) {
+            val texts = response.body()
+            texts?.forEach { text ->
+                Log.i("dev_log", "Text: $text")
+            }
+        }
+        override fun onFailure(call: Call<List<Text>>, t: Throwable) {
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
+            Log.e("dev_log", "${t.message}")
+        }
+    })
+}
+
+fun getTextById(id: Int) {
+    var call = TextClient().getTextService().getById(id)
+
+    call.enqueue(object : Callback<Text>{
+        override fun onResponse(call: Call<Text>, response: Response<Text>) {
+            val text = response.body()
+            Log.i("dev_log", "Text: $text")
+        }
+        override fun onFailure(call: Call<Text>, t: Throwable) {
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
+            Log.e("dev_log", "${t.message}")
+        }
+    })
+}
+
+fun listTextByDeviceId(id: Int) {
+    var call = TextClient().getTextService().listByDeviceId(id)
+
+    call.enqueue(object: Callback<List<Text>>{
+        override fun onResponse(call: Call<List<Text>>, response: Response<List<Text>>) {
+            val texts = response.body()
+            texts?.forEach { text ->
+                Log.i("dev_log", "Text: $text")
+            }
+        }
+        override fun onFailure(call: Call<List<Text>>, t: Throwable) {
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
+            Log.e("dev_log", "${t.message}")
+        }
+    })
+}
+
+fun addText(device: Device) {
+    val text = Text(0, "wwww....", "Lorem Ipsum Dolor Amnet", "2021-12-01", device)
+    val call = TextClient().getTextService().addText(text)
+
+    call.enqueue(object : Callback<Text>{
+        override fun onResponse(call: Call<Text>, response: Response<Text>) {
+            val text = response.body()
+            Log.i("dev_log", "Text: $text")
+        }
+        override fun onFailure(call: Call<Text>, t: Throwable) {
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
+            Log.e("dev_log", "${t.message}")
+        }
+    })
+}
+
+
+
+/**
 fun getInfo(context: Context) {
 
     val sourceDeviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
@@ -145,7 +213,7 @@ fun listAllDevice() {
         }
 
         override fun onFailure(call: Call<List<Device>>, t: Throwable) {
-            Log.e("dev_log", "Aconteceu alguma problema em ${javaClass.enclosingMethod?.name}")
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
             Log.e("dev_log", "${t.message}")
         }
     })
@@ -153,7 +221,7 @@ fun listAllDevice() {
 }
 
 
-fun getDeviceById(id: String) {
+fun getDeviceById(id: Int) {
 
     var call = DeviceClient().getDeviceService().getById(id)
 
@@ -220,3 +288,4 @@ fun addDevice() {
     })
 
 }
+**/

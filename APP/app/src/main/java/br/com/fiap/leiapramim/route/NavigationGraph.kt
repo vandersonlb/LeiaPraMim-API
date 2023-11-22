@@ -9,18 +9,20 @@ import br.com.fiap.leiapramim.view.GalleryPreviewScreen
 import br.com.fiap.leiapramim.view.GalleryScreen
 import br.com.fiap.leiapramim.view.HomeScreen
 import br.com.fiap.leiapramim.view.PreviewScreen
+import br.com.fiap.leiapramim.viewmodel.DeviceViewModel
 import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
     navigationViewModel: NavigationViewModel,
+    deviceViewModel: DeviceViewModel,
 ) {
 
     NavHost(navController, startDestination = NavigationItem.Home.route) {
-        composable(NavigationItem.Home.route) { HomeScreen(navController, navigationViewModel) }
-        composable(NavigationItem.Camera.route) { CameraScreen(navController, navigationViewModel) }
-        composable(NavigationItem.Gallery.route) { GalleryScreen(navController, navigationViewModel) }
+        composable(NavigationItem.Home.route) { HomeScreen(navController, navigationViewModel, deviceViewModel) }
+        composable(NavigationItem.Camera.route) { CameraScreen(navController, navigationViewModel, deviceViewModel) }
+        composable(NavigationItem.Gallery.route) { GalleryScreen(navController, navigationViewModel, deviceViewModel) }
 
         composable(route = "${NavigationItem.Preview.route}/{uri}") {
             PreviewScreen(navController, it.arguments?.getString("uri")!!)
