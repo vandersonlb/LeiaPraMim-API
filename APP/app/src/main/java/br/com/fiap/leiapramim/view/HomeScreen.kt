@@ -23,8 +23,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.fiap.leiapramim.R
+import br.com.fiap.leiapramim.model.Audio
 import br.com.fiap.leiapramim.model.Device
 import br.com.fiap.leiapramim.model.Text
+import br.com.fiap.leiapramim.service.AudioClient
 import br.com.fiap.leiapramim.service.TextClient
 import br.com.fiap.leiapramim.view.components.BottomNavigation
 import br.com.fiap.leiapramim.viewmodel.DeviceViewModel
@@ -64,10 +66,11 @@ fun HomeScreen(
                             if (player == null) player = MediaPlayer.create(context, R.raw.intro)
 //                            player.start()
 //                            getInfo(context)
-//                            listAllText()
-//                            getTextById(55)
-//                            listTextByDeviceId(13)
-                            addText(deviceViewModel.loggedDevice.value!!)
+
+//                            listAllAudio()
+//                            getAudioById(1)
+//                            getAudioByTextId(7)
+                            addAudio()
                         },
                         Modifier.size(256.dp)
                     ) {
@@ -110,6 +113,72 @@ fun HomeScreen(
 }
 
 
+
+
+fun listAllAudio() {
+    var call = AudioClient().getAudioService().listAll()
+
+    call.enqueue(object: Callback<List<Audio>>{
+        override fun onResponse(call: Call<List<Audio>>, response: Response<List<Audio>>) {
+            val audios = response.body()
+            audios?.forEach { audio ->
+                Log.i("dev_log", "Audio: $audio")
+            }
+        }
+        override fun onFailure(call: Call<List<Audio>>, t: Throwable) {
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
+            Log.e("dev_log", "${t.message}")
+        }
+    })
+}
+
+fun getAudioById(id: Int) {
+    var call = AudioClient().getAudioService().getById(id)
+
+    call.enqueue(object : Callback<Audio>{
+        override fun onResponse(call: Call<Audio>, response: Response<Audio>) {
+            val audio = response.body()
+            Log.i("dev_log", "Audio: $audio")
+        }
+        override fun onFailure(call: Call<Audio>, t: Throwable) {
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
+            Log.e("dev_log", "${t.message}")
+        }
+    })
+}
+
+fun getAudioByTextId(id: Int) {
+    var call = AudioClient().getAudioService().getByTextId(id)
+
+    call.enqueue(object : Callback<Audio>{
+        override fun onResponse(call: Call<Audio>, response: Response<Audio>) {
+            val audio = response.body()
+            Log.i("dev_log", "Audio: $audio")
+        }
+        override fun onFailure(call: Call<Audio>, t: Throwable) {
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
+            Log.e("dev_log", "${t.message}")
+        }
+    })
+}
+
+fun addAudio() {
+    val device = Device(13,"6152fa3f995ddbc5","motorola","moto g(20)",30,"11","2023-11-21")
+    val text = Text(10, "wwww....", "Lorem Ipsum Dolor Amnet", "2021-12-01", device)
+    val audio = Audio(0, "wwww.audio...", "2021-12-12", text)
+    val call = AudioClient().getAudioService().addAudio(audio)
+
+    call.enqueue(object : Callback<Audio>{
+        override fun onResponse(call: Call<Audio>, response: Response<Audio>) {
+            val audio = response.body()
+            Log.i("dev_log", "Audio: $audio")
+        }
+        override fun onFailure(call: Call<Audio>, t: Throwable) {
+            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
+            Log.e("dev_log", "${t.message}")
+        }
+    })
+}
 
 
 fun listAllText() {
@@ -176,7 +245,6 @@ fun addText(device: Device) {
         }
     })
 }
-
 
 
 /**
