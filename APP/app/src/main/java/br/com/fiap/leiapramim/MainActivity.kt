@@ -1,5 +1,6 @@
 package br.com.fiap.leiapramim
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -25,6 +26,7 @@ import retrofit2.Response
 import java.time.LocalDateTime
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -102,8 +104,8 @@ fun addDevice(device: Device, callback: (Device?) -> Unit) {
     call.enqueue(object: Callback<Device> {
         override fun onResponse(call: Call<Device>, response: Response<Device>) {
             if (response.isSuccessful) {
-                val device = response.body()
-                callback(device)
+                val deviceRes = response.body()
+                callback(deviceRes)
             } else {
                 Log.e("dev_log", "Response error: ${response.code()}")
                 callback(null)

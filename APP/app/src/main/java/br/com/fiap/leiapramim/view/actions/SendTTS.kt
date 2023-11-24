@@ -41,7 +41,7 @@ suspend fun sendTTS(uri: Uri, ocrText: String): File? {
         }
 
         override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-            Log.e("test", "$t")
+            Log.e("dev_log", "$t")
             deferred.complete(null)
         }
 

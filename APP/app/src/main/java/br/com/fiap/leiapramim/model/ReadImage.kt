@@ -18,6 +18,9 @@ data class ReadImage(
     @ColumnInfo(name = "image_path")
     val imagePath: String?,
 
+    @ColumnInfo(name = "text_ocr")
+    val textOcr: String?,
+
     @ColumnInfo(name = "audio_path")
     val audioPath: String?,
 

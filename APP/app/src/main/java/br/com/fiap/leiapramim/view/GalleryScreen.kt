@@ -23,7 +23,6 @@ import br.com.fiap.leiapramim.database.repository.ReadImageRepository
 import br.com.fiap.leiapramim.model.ReadImage
 import br.com.fiap.leiapramim.route.NavigationItem
 import br.com.fiap.leiapramim.view.components.BottomNavigation
-import br.com.fiap.leiapramim.viewmodel.DeviceViewModel
 import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 import coil.compose.rememberImagePainter
 import java.io.File
@@ -31,8 +30,7 @@ import java.io.File
 @Composable
 fun GalleryScreen(
     navController: NavHostController,
-    navigationViewModel: NavigationViewModel,
-    deviceViewModel: DeviceViewModel
+    navigationViewModel: NavigationViewModel
 ) {
 
     val context = LocalContext.current

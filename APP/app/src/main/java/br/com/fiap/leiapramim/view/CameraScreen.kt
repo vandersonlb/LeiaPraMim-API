@@ -24,14 +24,12 @@ import br.com.fiap.leiapramim.R
 import br.com.fiap.leiapramim.view.actions.takePicture
 import br.com.fiap.leiapramim.view.components.BottomNavigation
 import br.com.fiap.leiapramim.view.components.CameraView
-import br.com.fiap.leiapramim.viewmodel.DeviceViewModel
 import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
 
 @Composable
 fun CameraScreen(
     navController: NavHostController,
-    navigationViewModel: NavigationViewModel,
-    deviceViewModel: DeviceViewModel
+    navigationViewModel: NavigationViewModel
 ) {
 
     val context = LocalContext.current

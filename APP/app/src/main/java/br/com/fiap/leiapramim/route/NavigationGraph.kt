@@ -20,12 +20,12 @@ fun NavigationGraph(
 ) {
 
     NavHost(navController, startDestination = NavigationItem.Home.route) {
-        composable(NavigationItem.Home.route) { HomeScreen(navController, navigationViewModel, deviceViewModel) }
-        composable(NavigationItem.Camera.route) { CameraScreen(navController, navigationViewModel, deviceViewModel) }
-        composable(NavigationItem.Gallery.route) { GalleryScreen(navController, navigationViewModel, deviceViewModel) }
+        composable(NavigationItem.Home.route) { HomeScreen(navController, navigationViewModel) }
+        composable(NavigationItem.Camera.route) { CameraScreen(navController, navigationViewModel) }
+        composable(NavigationItem.Gallery.route) { GalleryScreen(navController, navigationViewModel) }
 
         composable(route = "${NavigationItem.Preview.route}/{uri}") {
-            PreviewScreen(navController, it.arguments?.getString("uri")!!)
+            PreviewScreen(navController, it.arguments?.getString("uri")!!, deviceViewModel)
         }
 
         composable(route = "${NavigationItem.GalleryPreview.route}/{id}"){

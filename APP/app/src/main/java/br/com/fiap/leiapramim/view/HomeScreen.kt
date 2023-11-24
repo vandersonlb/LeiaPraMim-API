@@ -1,7 +1,6 @@
 package br.com.fiap.leiapramim.view
 
 import android.media.MediaPlayer
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,23 +22,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import br.com.fiap.leiapramim.R
-import br.com.fiap.leiapramim.model.Audio
-import br.com.fiap.leiapramim.model.Device
-import br.com.fiap.leiapramim.model.Text
-import br.com.fiap.leiapramim.service.AudioClient
-import br.com.fiap.leiapramim.service.TextClient
 import br.com.fiap.leiapramim.view.components.BottomNavigation
-import br.com.fiap.leiapramim.viewmodel.DeviceViewModel
 import br.com.fiap.leiapramim.viewmodel.NavigationViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @Composable
 fun HomeScreen(
     navController: NavHostController,
-    navigationViewModel: NavigationViewModel,
-    deviceViewModel: DeviceViewModel
+    navigationViewModel: NavigationViewModel
 ) {
 
     val context = LocalContext.current
@@ -64,13 +53,7 @@ fun HomeScreen(
                         onClick = {
                             playState = false
                             if (player == null) player = MediaPlayer.create(context, R.raw.intro)
-//                            player.start()
-//                            getInfo(context)
-
-//                            listAllAudio()
-//                            getAudioById(1)
-//                            getAudioByTextId(7)
-                            addAudio()
+                            player.start()
                         },
                         Modifier.size(256.dp)
                     ) {
@@ -111,249 +94,3 @@ fun HomeScreen(
         }
     }
 }
-
-
-
-
-fun listAllAudio() {
-    var call = AudioClient().getAudioService().listAll()
-
-    call.enqueue(object: Callback<List<Audio>>{
-        override fun onResponse(call: Call<List<Audio>>, response: Response<List<Audio>>) {
-            val audios = response.body()
-            audios?.forEach { audio ->
-                Log.i("dev_log", "Audio: $audio")
-            }
-        }
-        override fun onFailure(call: Call<List<Audio>>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-}
-
-fun getAudioById(id: Int) {
-    var call = AudioClient().getAudioService().getById(id)
-
-    call.enqueue(object : Callback<Audio>{
-        override fun onResponse(call: Call<Audio>, response: Response<Audio>) {
-            val audio = response.body()
-            Log.i("dev_log", "Audio: $audio")
-        }
-        override fun onFailure(call: Call<Audio>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-}
-
-fun getAudioByTextId(id: Int) {
-    var call = AudioClient().getAudioService().getByTextId(id)
-
-    call.enqueue(object : Callback<Audio>{
-        override fun onResponse(call: Call<Audio>, response: Response<Audio>) {
-            val audio = response.body()
-            Log.i("dev_log", "Audio: $audio")
-        }
-        override fun onFailure(call: Call<Audio>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-}
-
-fun addAudio() {
-    val device = Device(13,"6152fa3f995ddbc5","motorola","moto g(20)",30,"11","2023-11-21")
-    val text = Text(10, "wwww....", "Lorem Ipsum Dolor Amnet", "2021-12-01", device)
-    val audio = Audio(0, "wwww.audio...", "2021-12-12", text)
-    val call = AudioClient().getAudioService().addAudio(audio)
-
-    call.enqueue(object : Callback<Audio>{
-        override fun onResponse(call: Call<Audio>, response: Response<Audio>) {
-            val audio = response.body()
-            Log.i("dev_log", "Audio: $audio")
-        }
-        override fun onFailure(call: Call<Audio>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-}
-
-
-fun listAllText() {
-    var call = TextClient().getTextService().listAll()
-
-    call.enqueue(object: Callback<List<Text>>{
-        override fun onResponse(call: Call<List<Text>>, response: Response<List<Text>>) {
-            val texts = response.body()
-            texts?.forEach { text ->
-                Log.i("dev_log", "Text: $text")
-            }
-        }
-        override fun onFailure(call: Call<List<Text>>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-}
-
-fun getTextById(id: Int) {
-    var call = TextClient().getTextService().getById(id)
-
-    call.enqueue(object : Callback<Text>{
-        override fun onResponse(call: Call<Text>, response: Response<Text>) {
-            val text = response.body()
-            Log.i("dev_log", "Text: $text")
-        }
-        override fun onFailure(call: Call<Text>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-}
-
-fun listTextByDeviceId(id: Int) {
-    var call = TextClient().getTextService().listByDeviceId(id)
-
-    call.enqueue(object: Callback<List<Text>>{
-        override fun onResponse(call: Call<List<Text>>, response: Response<List<Text>>) {
-            val texts = response.body()
-            texts?.forEach { text ->
-                Log.i("dev_log", "Text: $text")
-            }
-        }
-        override fun onFailure(call: Call<List<Text>>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-}
-
-fun addText(device: Device) {
-    val text = Text(0, "wwww....", "Lorem Ipsum Dolor Amnet", "2021-12-01", device)
-    val call = TextClient().getTextService().addText(text)
-
-    call.enqueue(object : Callback<Text>{
-        override fun onResponse(call: Call<Text>, response: Response<Text>) {
-            val text = response.body()
-            Log.i("dev_log", "Text: $text")
-        }
-        override fun onFailure(call: Call<Text>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-}
-
-
-/**
-fun getInfo(context: Context) {
-
-    val sourceDeviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-    val deviceFactory = Build.MANUFACTURER
-    val deviceModel = Build.MODEL
-    val androidVersion = Build.VERSION.RELEASE
-    val sdkVersion = Build.VERSION.SDK_INT
-    val dateRecord = LocalDateTime.now()
-
-    Log.i("dev_log", sourceDeviceId)         // 6152fa3f995ddbc5
-    Log.i("dev_log", deviceModel)            // moto g(20)
-    Log.i("dev_log", deviceFactory)          // motorola
-    Log.i("dev_log", androidVersion)         // 11
-    Log.i("dev_log", "${sdkVersion}")   // 30
-    Log.i("dev_log", "${dateRecord}")   // 2023-11-17T18:04:31.149
-}
-
-
-fun listAllDevice() {
-
-    var call = DeviceClient().getDeviceService().listAll()
-
-    call.enqueue(object: Callback<List<Device>>{
-        override fun onResponse(call: Call<List<Device>>, response: Response<List<Device>>) {
-
-            val devices = response.body()
-            devices?.forEach { device ->
-                Log.i("dev_log", "Device: $device")
-            }
-
-        }
-
-        override fun onFailure(call: Call<List<Device>>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-
-}
-
-
-fun getDeviceById(id: Int) {
-
-    var call = DeviceClient().getDeviceService().getById(id)
-
-    call.enqueue(object: Callback<Device>{
-        override fun onResponse(call: Call<Device>, response: Response<Device>) {
-
-            val device = response.body()
-            Log.i("dev_log", "Device: $device")
-
-        }
-
-        override fun onFailure(call: Call<Device>, t: Throwable) {
-            Log.e("dev_log", "Deu ruim")
-            Log.e("dev_log", "${t.stackTrace}")
-            Log.e("dev_log", "${t.message}")
-            Log.e("dev_log", "${t.cause}")
-            Log.e("dev_log", "${t.localizedMessage}")
-        }
-    })
-
-}
-
-fun getDeviceBySourceId(sourceId: String) {
-
-    var call = DeviceClient().getDeviceService().getBySourceDeviceId(sourceId)
-
-    call.enqueue(object: Callback<Device>{
-        override fun onResponse(call: Call<Device>, response: Response<Device>) {
-
-            val device = response.body()
-            Log.i("dev_log", "Device: $device")
-
-        }
-
-        override fun onFailure(call: Call<Device>, t: Throwable) {
-            Log.e("dev_log", "Deu ruim")
-            Log.e("dev_log", "${t.stackTrace}")
-            Log.e("dev_log", "${t.message}")
-            Log.e("dev_log", "${t.cause}")
-            Log.e("dev_log", "${t.localizedMessage}")
-        }
-    })
-
-}
-
-fun addDevice() {
-
-    val device = Device("0", "xxxxxx", "Motorola", "Moto G20", "Choco 30", "11", "2021-12-01")
-
-    var call = DeviceClient().getDeviceService().addDevice(device)
-
-    call.enqueue(object: Callback<Device>{
-        override fun onResponse(call: Call<Device>, response: Response<Device>) {
-
-            val device = response.body()
-            Log.i("dev_log", "Device: $device")
-
-        }
-
-        override fun onFailure(call: Call<Device>, t: Throwable) {
-            Log.e("dev_log", "Problem with ${javaClass.enclosingMethod?.name} function")
-            Log.e("dev_log", "${t.message}")
-        }
-    })
-
-}
-**/

@@ -6,11 +6,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class TextClient {
 
-    private val URL = "http://192.168.15.28:8080/"
+    private val url = "http://192.168.15.28:8080/"
 
     private val retrofitFactory = Retrofit
         .Builder()
-        .baseUrl(URL)
+        .baseUrl(url)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

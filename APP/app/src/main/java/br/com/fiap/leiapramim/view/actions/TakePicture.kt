@@ -35,7 +35,7 @@ fun takePicture(
             }
 
             override fun onError(exception: ImageCaptureException) {
-                Log.e("test", "$exception")
+                Log.e("dev_log", "$exception")
             }
         }
     )
